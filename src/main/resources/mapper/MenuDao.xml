@@ -25,7 +25,7 @@
 
     <!--查询所有菜单-->
     <select id="queryAllMenu" resultMap="menuMap">
-        select * from pro_menu
+        select * from pro_menu order  by list_order
     </select>
     <!--根据ID查询菜单对象-->
     <select id="queryMenuById" resultMap="menuMap">
@@ -34,7 +34,7 @@
 
     <!--查询所有上级菜单-->
     <select id="queryParentMenu" resultMap="menuMap">
-        select id,name,pid,type,url,icon from pro_menu
+        select id,name,pid,type,url,icon from pro_menu order  by list_order
     </select>
 
     <!--新增菜单-->
