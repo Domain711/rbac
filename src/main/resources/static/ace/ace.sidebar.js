@@ -141,7 +141,8 @@ $('ul.nav-list li,ul.ace-nav li').click(function(){
 			} catch(e) {  //这里不会执行
 				if(this.minimized)
 					this.$sidebar.addClass('menu-min');   //收缩
-				else this.$sidebar.removeClass('menu-min');  //展开
+				 else
+				     this.$sidebar.removeClass('menu-min');  //展开
 			}
 
 			if( !toggle_btn ) {
@@ -341,7 +342,7 @@ $('ul.nav-list li,ul.ace-nav li').click(function(){
 			//折叠菜单打开
 			$('ul.nav-list li').removeClass('active').removeClass('open');  //清除所有active
 			$sub.parent().addClass('active');
-			$('ul.nav-show').removeClass('nav-show').addClass('nav-hide').css('display','none');  //关闭其它的，
+			// $('ul.nav-show').removeClass('nav-show').addClass('nav-hide').css('display','none');  //关闭其它的，
 			$sub.parents('ul').removeClass('nav-hide').addClass('nav-show').css('display','block'); //保持其上层菜单是打开的。
 
 			$sub.css({
@@ -533,25 +534,6 @@ $('ul.nav-list li,ul.ace-nav li').click(function(){
 		return false;
 	})
 
-	// //侧栏收缩、扩展按钮
-	// .on(ace.click_event+'.ace.menu', '.sidebar-collapse', function(e){
-	// 	var target = $(this).attr('data-target'), $sidebar = null;
-	// 	if(target) $sidebar = $(target);
-	// 	if($sidebar == null || $sidebar.length == 0) $sidebar = $(this).closest('.sidebar');
-	// 	if($sidebar.length == 0) return;
-	//
-	// 	e.preventDefault();
-	// 	$sidebar.ace_sidebar('toggleMenu', this);
-	// 	//如果是收缩菜单，则添加交互菜单。如果是展开菜单，则去掉交互菜单
-	// 	if($('#sidebar').hasClass('menu-min')){  //收缩状态，则添加上交互菜单
-	// 		$('#ace-settings-highlight').removeAttr('checked').trigger('click');  //交互菜单
-	// 		$('div.quick-nav span').html('');  //除去：快捷菜单
-	// 	}
-	// 	else{   //展开状态，则去掉交互菜单
-	// 		$('#ace-settings-highlight').attr('checked',true).trigger('click');  //交互菜单，用click事件触发
-	// 		$('div.quick-nav span').html('  快捷菜单');
-	// 	}
-	// })
 	//this button is used in `mobile_style = 3` responsive menu style to expand minimized sidebar
 	.on(ace.click_event+'.ace.menu', '.sidebar-expand', function(e){
 		var target = $(this).attr('data-target'), $sidebar = null;
@@ -581,27 +563,8 @@ $('ul.nav-list li,ul.ace-nav li').click(function(){
 			}
 		}
 	})
-	/**
-	 .on('shown.bs.collapse.sidebar hidden.bs.collapse.sidebar', '.sidebar[data-auto-hide=true]', function(e){
-		var click_event = ace.click_event+'.ace.autohide';
 
-		var sidebar = this;
-		if(e.type == 'shown') {
-			$(document).on(click_event, function(ev) {
-				if( sidebar == ev.target || $.contains(sidebar, ev.target) ) {
-					ev.stopPropagation();
-					return;
-				}
-
-				$(sidebar).collapse('hide');
-				$(document).off(click_event);
-			})
-		}
-		else $(document).off(click_event);
-	});
-	 */
-
-		//hover时激活
+		//hover时激活？
 	$.fn.ace_sidebar = function (option, value) {
 		var method_call;
 
