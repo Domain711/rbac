@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunos.rbac.dao.menu.MenuDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yunos.rbac.entity.menu.MenuEntity" id="menuMap">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="name" column="name"/>
+        <result property="icon" column="icon"/>
+        <result property="url" column="url"/>
+        <result property="authUrl" column="auth_url"/>
+        <result property="httpMethod" column="http_method"/>
+        <result property="param" column="param"/>
+        <result property="type" column="type"/>
+        <result property="menuType" column="menu_type"/>
+        <result property="status" column="status"/>
+        <result property="listOrder" column="list_order"/>
+        <result property="remark" column="remark"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="isDel" column="is_del"/>
+    </resultMap>
+
+    <!--查询所有菜单-->
+    <select id="queryAllMenu" resultMap="menuMap">
+        select * from pro_menu
+    </select>
+    <!--根据ID查询菜单对象-->
+    <select id="queryMenuById" resultMap="menuMap">
+        select * from pro_menu where id=#{id}
+    </select>
+
+    <!--查询所有上级菜单-->
+    <select id="queryParentMenu" resultMap="menuMap">
+        select id,name,pid,type,url,icon from pro_menu
+    </select>
+
+    <!--新增菜单-->
+    <insert id="saveMenu" parameterType="com.yunos.rbac.entity.menu.MenuEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into `pro_menu` (pid,name,icon,url,auth_url,http_method,param,type,menu_type,status,list_order,remark,is_del)
+        VALUES (#{pid}, #{name}, #{icon}, #{url},  #{authUrl}, #{httpMethod}, #{param}, #{type}, #{menuType}, 0, #{listOrder}, #{remark}, #{isDel})
+    </insert>
+
+    <!--更新菜单信息-->
+    <update id="saveEditMenu" parameterType="com.yunos.rbac.entity.menu.MenuEntity">
+        update
+          `pro_menu` set
+          pid = #{pid},name=#{name},icon=#{icon},url=#{url},auth_url=#{authUrl},http_method=#{httpMethod},param=#{param},
+          type=#{type},menu_type=#{menuType},status=#{status},list_order=#{listOrder},remark=#{remark},is_del=#{isDel}
+          where id=#{id}
+    </update>
+</mapper>

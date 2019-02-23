@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta charset="utf-8"/>
+        <title>新增菜单</title>
+
+        <meta name="description" content="Common form elements and layouts"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+        <!-- bootstrap & fontawesome -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+        <!-- page specific plugin styles -->
+        <link rel="stylesheet" href="assets/css/jquery-ui.custom.min.css"/>
+        <link rel="stylesheet" href="assets/css/chosen.min.css"/>
+        <link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css"/>
+        <link rel="stylesheet" href="assets/css/bootstrap-timepicker.min.css"/>
+        <link rel="stylesheet" href="assets/css/daterangepicker.min.css"/>
+        <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css"/>
+        <link rel="stylesheet" href="assets/css/bootstrap-colorpicker.min.css"/>
+
+        <!-- text fonts -->
+        <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>
+
+        <!-- ace styles -->
+        <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
+        <link rel="stylesheet" href="layer/css/layui.css"/>
+
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet"/>
+        <![endif]-->
+        <link rel="stylesheet" href="assets/css/ace-skins.min.css"/>
+        <link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>
+
+        <!--[if lte IE 9]>
+        <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
+        <![endif]-->
+
+        <!-- inline styles related to this page -->
+
+        <!-- ace settings handler -->
+        <script src="assets/js/ace-extra.min.js"></script>
+
+        <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+        <!--[if lte IE 8]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="no-skin">
+
+        <div class="main-container ace-save-state" id="main-container">
+            <div class="main-content">
+                <div class="main-content-inner">
+                    <div class="page-content">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal" role="form" method="post">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1">菜单名称
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" id="form-field-1" name="name" placeholder="请输入菜单名称"
+                                                   class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-2">
+                                            请求路径
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" id="form-field-1-2" name="url" placeholder="请求路径"
+                                                   class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-8">参数
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" id="form-field-1-8" name="param" placeholder="菜单路径参数"
+                                                   class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-9">
+                                            授权路径规则
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" id="form-field-1-9" name="authUrl" placeholder="授权路径规则"
+                                                   class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right">请求方式</label>
+
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="form-field-select-1" name="httpMethod">
+                                                <option value="1">GET</option>
+                                                <option value="2">POST</option>
+                                                <option value="3">PUT</option>
+                                                <option value="4">DELETE</option>
+                                                <option value="5">HEAD</option>
+                                                <option value="6">OPTIONS</option>
+                                                <option value="7">TRACE</option>
+                                                <option value="8">PATCH</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right">上级目录</label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" placeholder="上级目录"
+                                                   class="col-xs-10 col-sm-5" id="selectParentMenu"/>
+                                            <input type="hidden" name="pid"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right">菜单分类</label>
+
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="form-field-select-3" name="type">
+                                                <option value="1">后台菜单</option>
+                                                <option value="2">前台菜单</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right">菜单类型</label>
+
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="form-field-select-5" name="menuType">
+                                                <option value="1">有界面可访问</option>
+                                                <option value="2">无界面可访问</option>
+                                                <option value="0">只作为菜单</option>
+                                                <option value="3">只作为分组标题</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right">状态</label>
+
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="form-field-select-4" name="status">
+                                                <option value="1">显示</option>
+                                                <option value="0">不显示</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-7">
+                                            菜单图标
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="icon" id="form-field-1-7" placeholder="菜单图标"
+                                                   value="fa fa-caret-right" class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-3">
+                                            排序
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" name="listOrder" id="form-field-1-3" placeholder="菜单显示顺序"
+                                                   value="1000" class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-1-4">备注
+                                        </label>
+
+                                        <div class="col-sm-9">
+                                            <input type="text" name="remark" id="form-field-1-4" placeholder="备注"
+                                                   class="col-xs-10 col-sm-5"/>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix" style="margin-left: 30%">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button class="btn btn-info" type="button" th:onclick="'saveUser()'">
+                                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                                提交
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div><!-- /.col -->
+                        </div><!-- /.row -->
+                    </div><!-- /.page-content -->
+                </div>
+            </div><!-- /.main-content -->
+
+        </div><!-- /.main-container -->
+
+        <!-- basic scripts -->
+
+        <!--[if !IE]> -->
+        <script src="assets/js/jquery-2.1.4.min.js"></script>
+
+        <!-- <![endif]-->
+
+        <!--[if IE]>
+        <script src="assets/js/jquery-1.11.3.min.js"></script>
+        <![endif]-->
+        <script type="text/javascript">
+            if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+        </script>
+        <script src="assets/js/bootstrap.min.js"></script>
+
+        <!-- page specific plugin scripts -->
+
+        <!--[if lte IE 8]>
+        <script src="assets/js/excanvas.min.js"></script>
+        <![endif]-->
+
+        <!-- ace scripts -->
+        <script src="assets/js/jquery-ui.custom.min.js"></script>
+        <script src="assets/js/jquery.ui.touch-punch.min.js"></script>
+        <script src="assets/js/chosen.jquery.min.js"></script>
+        <script src="assets/js/spinbox.min.js"></script>
+        <script src="assets/js/bootstrap-datepicker.min.js"></script>
+        <script src="assets/js/bootstrap-timepicker.min.js"></script>
+        <script src="assets/js/moment.min.js"></script>
+        <script src="assets/js/daterangepicker.min.js"></script>
+        <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="assets/js/bootstrap-colorpicker.min.js"></script>
+        <script src="assets/js/jquery.knob.min.js"></script>
+        <script src="assets/js/autosize.min.js"></script>
+        <script src="assets/js/jquery.inputlimiter.min.js"></script>
+        <script src="assets/js/jquery.maskedinput.min.js"></script>
+        <script src="assets/js/bootstrap-tag.min.js"></script>
+        <script src="assets/js/ace-elements.min.js"></script>
+        <script src="assets/js/ace.min.js"></script>
+        <script type="text/javascript" src="layer/layui.js"></script>
+        <script type="text/javascript">
+            layui.use(['treeSelect', 'form'], function () {
+                var treeSelect = layui.treeSelect;
+
+                treeSelect.render({
+                    // 选择器
+                    elem: '#selectParentMenu',
+                    // 数据
+                    data: 'getParentMenu',
+                    // 异步加载方式：get/post，默认get
+                    type: 'get',
+                    // 占位符
+                    placeholder: '修改默认提示信息',
+                    // 是否开启搜索功能：true/false，默认false
+                    search: true,
+                    // 点击回调 d就是id
+                    click: function (d) {
+                        $("input[name='pid']").val(d);
+                        console.log(d);
+                    },
+                    // 加载完成后的回调函数
+                    success: function (d) {
+                        console.log(d);
+//                选中节点，根据id筛选
+                        treeSelect.checkNode('tree', 1);
+
+//                获取zTree对象，可以调用zTree方法
+//                var treeObj = treeSelect.zTree('tree');
+//                console.log(treeObj);
+
+//                刷新树结构
+//                treeSelect.refresh();
+                    }
+                });
+            });
+
+            //保存新菜单
+            function saveUser() {
+                $.ajax({
+                    url: '/saveMenu',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $(".form-horizontal").serialize(),
+                    async: false,
+                    success: function (data) {
+                        if (data != null && true == data.succeed) {
+                            layer.msg("保存成功", {time: 1000}, function () {
+                                window.parent.location.reload()
+                                layer.close();
+                            })
+                        } else {
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
+            }
+
+
+        </script>
+
+    </body>
+</html>
