@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunos.rbac.dao.user.UserAdminDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yunos.rbac.entity.user.UserAdminEntity" id="proUserAdminMap">
+        <result property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="headPhoto" column="head_photo"/>
+        <result property="sex" column="sex"/>
+        <result property="isLock" column="is_lock"/>
+        <result property="expTime" column="exp_time"/>
+        <result property="gmtCreate" column="gmt_create"/>
+        <result property="gmtModified" column="gmt_modified"/>
+        <result property="isDel" column="is_del"/>
+    </resultMap>
+    <!--查询所有用户-->
+    <select id="queryAll" resultMap="proUserAdminMap">
+            SELECT * FROM pro_user_admin
+    </select>
+    <!--根据ID查询用户-->
+    <select id="getUserById" resultType="com.yunos.rbac.entity.user.UserAdminEntity">
+            SELECT * FROM pro_user_admin where id=#{userId}
+    </select>
+    <!--新增用户-->
+    <insert id="addUser" parameterType="com.yunos.rbac.entity.user.UserAdminEntity" useGeneratedKeys="true"
+            keyProperty="id">
+      INSERT INTO `pro_user_admin` (nickname,username,password,phone,email,head_photo,sex)
+       VALUES (#{nickname},#{username},#{password},#{phone},#{email},'123',#{sex});
+    </insert>
+    <!--更新用户信息-->
+    <update id="mergeUser" parameterType="com.yunos.rbac.entity.user.UserAdminEntity">
+        update
+          `pro_user_admin` set
+          nickname = #{nickname},username=#{username},password=#{password},phone=#{phone},email=#{email},head_photo=#{headPhoto},sex=#{sex}
+          where id=#{id}
+    </update>
+    <!--删除用户-->
+    <delete id="deleteUser">
+        delete from  `pro_user_admin` where id=#{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <title>Form Elements - Ace Admin</title>
+
+    <meta name="description" content="Common form elements and layouts"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+
+    <!-- page specific plugin styles -->
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="/css/fonts.googleapis.com.css"/>
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ace-part2.min.css" class="ace-main-stylesheet"/>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/ace-skins.min.css"/>
+    <link rel="stylesheet" href="/css/ace-rtl.min.css"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/css/ace-ie.min.css"/>
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+    <script src="/js/ace-extra.min.js"></script>
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+    <!--[if lte IE 8]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="no-skin">
+
+<div class="main-container ace-save-state" id="main-container">
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <!-- PAGE CONTENT BEGINS -->
+                        <!--/*@thymesVar id="user" type="com.example.demo.entity.ProUserAdminEntity"*/-->
+                        <form class="form-horizontal" role="form" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 姓名 </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1" name="username" placeholder="请输入姓名"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1-2"> 昵称 </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" id="form-field-1-2" name="nickname" placeholder="昵称"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right">性别</label>
+
+                                <div class="col-sm-9">
+                                    <label>
+                                        <input name="sex" type="radio" class="ace" th:value="1" checked="checked"/>
+                                        <span class="lbl"> 男</span>
+                                    </label>
+                                    <label>
+                                        <input name="sex" type="radio" class="ace" th:value="2"/>
+                                        <span class="lbl">女</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1-7"> 头像 </label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="headPhoto" id="form-field-1-7" placeholder="头像"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1-3">
+                                    手机号码 </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="phone" id="form-field-1-3" placeholder="手机号码"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-1-4"> 邮箱 </label>
+
+                                <div class="col-sm-9">
+                                    <input type="text" name="email" id="form-field-1-4" placeholder="邮箱"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="space-4"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-5"> 密码 </label>
+
+                                <div class="col-sm-9">
+                                    <input type="password" name="password" id="form-field-5" placeholder="密码"
+                                           class="col-xs-10 col-sm-5"/>
+                                </div>
+                            </div>
+
+                            <div class="clearfix" style="margin-left: 30%">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn btn-info" type="button" th:onclick="'saveUser()'">
+                                        <i class="ace-icon fa fa-check bigger-110"></i>
+                                        提交
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script src="/js/jquery-2.1.4.min.js"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- page specific plugin scripts -->
+
+<!--[if lte IE 8]>
+<script src="/js/excanvas.min.js"></script>
+<![endif]-->
+
+<!-- ace scripts -->
+<script src="/js/ace-elements.min.js"></script>
+<script src="/js/ace.min.js"></script>
+<script src="/layer/layer.js"></script>
+<script type="text/javascript">
+    //保存新用户
+    function saveUser() {
+        $.ajax({
+            url: '/saveUser',
+            type: 'post',
+            dataType: 'json',
+            data: $(".form-horizontal").serialize(),
+            async: false,
+            success: function (data) {
+                if (data != null && true == data.succeed) {
+                    layer.msg("保存成功", {time: 1000}, function () {
+                        window.parent.location.reload()
+                        layer.close();
+                    })
+                } else {
+                    layer.msg(data.msg);
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yunos.rbac.dao.role.RoleDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yunos.rbac.entity.role.RoleEntity" id="roleMap">
+        <result property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleDesc" column="role_desc"/>
+    </resultMap>
+
+    <!--查询所有菜单-->
+    <select id="queryAllRole" resultMap="roleMap">
+        select * from pro_role order  by id
+    </select>
+
+    <!--新增用户-->
+    <insert id="saveRole" parameterType="com.yunos.rbac.entity.role.RoleEntity" useGeneratedKeys="true"
+            keyProperty="id">
+      INSERT INTO `pro_role` (role_name,role_desc)
+       VALUES (#{roleName},#{roleDesc});
+    </insert>
+
+    <!--删除角色-->
+    <delete id="deleteRole">
+        delete from  `pro_role` where id=#{id}
+    </delete>
+</mapper>
