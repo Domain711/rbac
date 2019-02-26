@@ -28,9 +28,20 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public RoleEntity getRoleById(Integer roleId) {
+        return roleDao.getRoleById(roleId);
+    }
+
+    @Override
     @Transactional
     public int saveRole(RoleEntity role) {
         int count = roleDao.saveRole(role);
+        return count;
+    }
+
+    @Override
+    public int updateRole(RoleEntity role) {
+        int count = roleDao.updateRole(role);
         return count;
     }
 

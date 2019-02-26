@@ -61,13 +61,13 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <!--/*@thymesVar id="user" type="com.example.demo.entity.ProUserAdminEntity"*/-->
                         <form class="form-horizontal" role="form" method="post">
+                            <input type="hidden"  name="id" th:value="${role?.id}"/>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 角色名称 </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="form-field-1" name="roleName" placeholder="角色名称"
+                                    <input type="text" id="form-field-1" name="roleName" th:value="${role?.roleName}" placeholder="角色名称"
                                            class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-1-2"> 角色描述 </label>
 
                                 <div class="col-sm-9">
-                                    <input type="text" id="form-field-1-2" name="roleDesc" placeholder="角色描述"
+                                    <input type="text" id="form-field-1-2" name="roleDesc" th:value="${role?.roleDesc}" placeholder="角色描述"
                                            class="col-xs-10 col-sm-5"/>
                                 </div>
                             </div>

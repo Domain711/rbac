@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +54,11 @@ public class RoleController {
      * @return
      */
     @GetMapping("/addRole")
-    String addRole(Model model) {
+    String addRole(Model model, @Param("roleId") Integer roleId) {
+        if (null != roleId) {
+            RoleEntity role = roleService.getRoleById(roleId);
+            model.addAttribute("role", role);
+        }
         return "role/addRole";
     }
 
@@ -70,10 +75,6 @@ public class RoleController {
         BaseDto bd = new BaseDto();
         StringBuilder validErrors = new StringBuilder();
         try {
-            int res = roleService.saveRole(role);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.SUCCESS.getCode());
-            bd.setMsg(ErrorCode.SUCCESS.getMsg());
             if (errors.hasErrors()) {
                 bd.setSucceed(GlobalContents.OPRATION_FAILD);
                 bd.setCode(ErrorCode.ERROR.getCode());
@@ -85,6 +86,11 @@ public class RoleController {
                     }
                 }
                 bd.setMsg(validErrors.toString());
+            } else {
+                int res = null != role.getId() ? roleService.updateRole(role) : roleService.saveRole(role);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.SUCCESS.getCode());
+                bd.setMsg(ErrorCode.SUCCESS.getMsg());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -95,12 +101,6 @@ public class RoleController {
         return GsonUtil.gson2String(bd);
     }
 
-    @GetMapping("/editRole")
-    String editRole(Model model, @Param("id") Integer id) {
-//        MenuEntity menu = menuService.queryMenuById(id);
-//        model.addAttribute("menu", menu);
-        return "menu/editMenu";
-    }
 
     /**
      * 删除角色

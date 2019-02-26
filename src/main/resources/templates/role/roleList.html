@@ -95,8 +95,7 @@
                                     <td th:text="${role.roleDesc}"></td>
                                     <td>
                                         <div class="hidden-sm hidden-xs btn-group">
-
-                                            <button class="btn btn-xs btn-info" th:onclick="'editUser('+${role.id}+')'">
+                                            <button class="btn btn-xs btn-info" th:onclick="'editRole('+${role.id}+')'">
                                                 <i class="ace-icon fa fa-pencil bigger-120"></i>
                                             </button>
 
@@ -216,13 +215,13 @@
     }
 
     //用户修改
-    function editUser(userId) {
+    function editRole(roleId) {
         var index = layer.open({
-                title: "用户修改",
+                title: "角色修改",
                 type: 2,
                 area: ['800px', '500px'],
                 shadeClose: true, //点击遮罩关闭
-                content: '/editUser?userId=' + userId,
+                content: '/addRole?roleId=' + roleId,
                 fix: true
             }
         );

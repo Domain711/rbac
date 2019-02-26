@@ -2,7 +2,10 @@ package com.yunos.rbac.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import com.yunos.rbac.entity.menu.MenuEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -65,11 +68,31 @@ public class GsonUtil {
      * @param cls
      * @return
      */
-    public static <T> List<T> gson2List(String gsonString, Class<T> cls) {
+    public static <T> List<T> gson2List(String gsonString, Class<MenuEntity> cls) {
         List<T> list = null;
         if (gson != null) {
             //根据泛型返回解析指定的类型,TypeToken<List<T>>{}.getType()获取返回类型
             list = gson.fromJson(gsonString, new TypeToken<List<T>>() {
+            }.getType());
+        }
+        return list;
+    }
+
+    /**
+     * json字符串获取其中属性值转成list
+     *
+     * @param gsonString
+     * @param cls
+     * @param propertyName 属性名
+     * @return
+     */
+    public static <T> List<T> gsonProperty2List(String gsonString,String propertyName ,Class<MenuEntity> cls) {
+        List<T> list = null;
+        if (gson != null) {
+            JsonElement je = new JsonParser().parse(gsonString);
+            JsonElement data = je.getAsJsonObject().get(propertyName);
+            //根据泛型返回解析指定的类型,TypeToken<List<T>>{}.getType()获取返回类型
+            list = gson.fromJson(data.toString(), new TypeToken<List<T>>() {
             }.getType());
         }
         return list;

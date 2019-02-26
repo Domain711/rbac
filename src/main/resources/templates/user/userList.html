@@ -105,7 +105,7 @@
                                     <td th:text="${user.sex==1} ? '男' : '女'"></td>
                                     <td th:text="${user.phone}"></td>
                                     <td th:text="${user.email}"></td>
-                                    <td><img src="/images/avatars/profile-pic.jpg" width="25" height="25"></td>
+                                    <td><img src="/assets/images/avatars/profile-pic.jpg" width="25" height="25"></td>
                                     <td th:text="${user.isLock==0} ? '正常' : '锁定'"></td>
                                     <td th:text="${user.expTime == null} ? '未过期' : ${#dates.format(user.expTime,'yyyy-MM-dd HH:mm:ss')}"></td>
                                     <td th:text="${user.gmtCreate == null} ? '' : ${#dates.format(user.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></td>

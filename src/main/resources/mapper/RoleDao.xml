@@ -10,17 +10,29 @@
         <result property="roleDesc" column="role_desc"/>
     </resultMap>
 
-    <!--查询所有菜单-->
+    <!--查询所有角色-->
     <select id="queryAllRole" resultMap="roleMap">
         select * from pro_role order  by id
     </select>
+    <!--根据id查询角色-->
+    <select id="getRoleById" resultMap="roleMap">
+        select * from pro_role where  id = #{roleId}
+    </select>
 
-    <!--新增用户-->
+    <!--新增角色-->
     <insert id="saveRole" parameterType="com.yunos.rbac.entity.role.RoleEntity" useGeneratedKeys="true"
             keyProperty="id">
       INSERT INTO `pro_role` (role_name,role_desc)
        VALUES (#{roleName},#{roleDesc});
     </insert>
+
+    <!--更新角色信息-->
+    <update id="updateRole" parameterType="com.yunos.rbac.entity.role.RoleEntity">
+        update
+          `pro_role` set
+          role_name = #{roleName},role_desc=#{roleDesc}
+          where id=#{id}
+    </update>
 
     <!--删除角色-->
     <delete id="deleteRole">

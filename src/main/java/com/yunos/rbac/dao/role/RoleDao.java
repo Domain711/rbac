@@ -18,12 +18,27 @@ public interface RoleDao {
     List<RoleEntity> queryAllRole();
 
     /**
-     * 保存菜单信息
-     *
-     * @param menu
+     * 根据角色id获取角色信息
+     * @param roleId
      * @return
      */
-    int saveRole(RoleEntity menu);
+    RoleEntity getRoleById(Integer roleId);
+
+    /**
+     * 保存角色信息
+     *
+     * @param role
+     * @return
+     */
+    int saveRole(RoleEntity role);
+
+    /**
+     * 更新角色信息
+     *
+     * @param role
+     * @return
+     */
+    int updateRole(RoleEntity role);
 
     /**
      * 删除角色
