@@ -34,6 +34,21 @@ public class AuthServiceImpl implements AuthService {
         return list;
     }
 
+    @Override
+    public long[] queryExistsPerm(Integer roleId) {
+        List<RolePermissionEntity> permsList = authDao.queryExistsPerm(roleId);
+        long[] perm = new long[permsList.size()];
+        for (int i = 0; i < permsList.size(); i++) {
+            perm[i] = permsList.get(i).getMenuId();
+        }
+        return perm;
+    }
+
+    @Override
+    public int delRolePermAuth(Long roleId) {
+        int res = authDao.delRolePermAuth(roleId);
+        return res;
+    }
 
     @Override
     @Transactional

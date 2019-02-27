@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.yunos.rbac.base.contants.GlobalContents;
 import com.yunos.rbac.base.dto.BaseDto;
+import com.yunos.rbac.base.dto.PermissionDto;
 import com.yunos.rbac.entity.menu.MenuEntity;
 import com.yunos.rbac.entity.role.RoleEntity;
 import com.yunos.rbac.exception.ErrorCode;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
@@ -63,16 +65,19 @@ public class AuthController {
      * 角色授权
      *
      * @param model
-     * @param page
+     * @param roleId
+     * @param id
      * @param request
      * @return
      */
     @GetMapping("/partitionAuth")
-    String partitionAuth(Model model, Integer roleId) {
+    String partitionAuth(Model model, @Param("roleId") Integer roleId, @Param("id") Integer id) {
         List<MenuEntity> menuList = menuService.queryAllMenu();
         model.addAttribute("data", GsonUtil.gson2String(menuList));
         RoleEntity role = roleService.getRoleById(roleId);
         model.addAttribute("role", role);
+        long[] perms = authService.queryExistsPerm(roleId);
+        model.addAttribute("existsPer", GsonUtil.gson2String(perms));
         return "auth/partitionAuth";
     }
 
@@ -87,8 +92,17 @@ public class AuthController {
     String saveRolePermAuth(@Param("roleId") Long roleId, @Param("permiss") String permission) {
         BaseDto bd = new BaseDto();
         try {
-            int res = authService.saveRolePermAuth(roleId, permission);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+            PermissionDto permissionDto = GsonUtil.gson2Bean(permission, PermissionDto.class);
+            if (null == permissionDto.getData() || 0 == permissionDto.getData().size()) {//权限变为空
+                //删除原有角色权限
+                authService.delRolePermAuth(roleId);
+                bd.setSucceed(GlobalContents.OPRATION_SUCESS);
+            } else {//
+                //删除原有角色权限
+                authService.delRolePermAuth(roleId);
+                int res = authService.saveRolePermAuth(roleId, permission);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+            }
             bd.setCode(ErrorCode.SUCCESS.getCode());
             bd.setMsg(ErrorCode.SUCCESS.getMsg());
         } catch (Exception e) {

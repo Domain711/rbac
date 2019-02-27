@@ -81,7 +81,6 @@
                                 <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>ID</th>
                                     <th>角色名称</th>
                                     <th>角色描述</th>
                                     <th>操作</th>
@@ -90,7 +89,6 @@
                                 <tbody>
                                 <tr th:each="role,statu:${pageInfo}">
                                     <td class="center" th:text="${statu.index+1}"></td>
-                                    <td th:text="${role.id}"></td>
                                     <td th:text="${role.roleName}"></td>
                                     <td th:text="${role.roleDesc}"></td>
                                     <td>

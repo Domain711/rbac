@@ -194,14 +194,14 @@
 
     })
 
-    //角色新增
+    //角色授权
     function authRole(roleId) {
         var index = layer.open({
                 title: "角色授权",
                 type: 2,
                 area: ['800px', '450px'],
                 shadeClose: true, //点击遮罩关闭
-                content: '/partitionAuth?roleId='+roleId,
+                content: '/partitionAuth?roleId=' + roleId,
                 fix: true
             }
         );

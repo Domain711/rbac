@@ -18,6 +18,13 @@ public interface AuthDao {
      */
     List<RoleEntity> queryAllRole();
 
+    /**
+     * 获取角色已有权限
+     *
+     * @param roleId
+     * @return
+     */
+    List<RolePermissionEntity> queryExistsPerm(Integer roleId);
 
     /**
      * 保存角色权限信息
@@ -26,6 +33,13 @@ public interface AuthDao {
      * @return
      */
     int saveRolePermAuth(RolePermissionEntity rolePermission);
+
+    /**
+     * 删除角色已有权限
+     *
+     * @param roleId
+     */
+    int delRolePermAuth(Long roleId);
 
 
 }

@@ -18,7 +18,10 @@
     <select id="getRoleById" resultType="com.yunos.rbac.entity.role.RoleEntity">
         select * from pro_role where  id = #{roleId}
     </select>
-
+    <!--根据角色id查询已有权限-->
+    <select id="queryExistsPerm" resultType="com.yunos.rbac.entity.auth.RolePermissionEntity">
+        select * from pro_role_permission where  role_id = #{roleId}
+    </select>
     <!--新增角色-->
     <insert id="saveRolePermAuth" parameterType="com.yunos.rbac.entity.auth.RolePermissionEntity"
             useGeneratedKeys="true"
@@ -26,6 +29,10 @@
       INSERT INTO `pro_role_permission` (role_id,menu_id)
        VALUES (#{roleId},#{menuId});
     </insert>
+    <!--删除角色权限信息-->
+    <delete id="delRolePermAuth">
+        delete from pro_role_permission where  role_id = #{roleId}
+    </delete>
 
 
 </mapper>

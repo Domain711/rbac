@@ -16,6 +16,14 @@ public interface AuthService {
      */
     List<RoleEntity> queryAllRole(Integer page);
 
+    /**
+     * 获取已有权限
+     *
+     * @param roleId
+     * @return
+     */
+    long[] queryExistsPerm(Integer roleId);
+
 
     /**
      * 保存权限信息
@@ -24,5 +32,13 @@ public interface AuthService {
      * @return
      */
     int saveRolePermAuth(@Param("roleId") Long roleId, @Param("permission") String permission);
+
+    /**
+     * 删除角色原有权限
+     *
+     * @param roleId
+     * @return
+     */
+    int delRolePermAuth(Long roleId);
 
 }
