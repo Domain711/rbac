@@ -68,7 +68,7 @@ public class GsonUtil {
      * @param cls
      * @return
      */
-    public static <T> List<T> gson2List(String gsonString, Class<MenuEntity> cls) {
+    public static <T> List<T> gson2List(String gsonString, Class<T> cls) {
         List<T> list = null;
         if (gson != null) {
             //根据泛型返回解析指定的类型,TypeToken<List<T>>{}.getType()获取返回类型
@@ -86,13 +86,13 @@ public class GsonUtil {
      * @param propertyName 属性名
      * @return
      */
-    public static <T> List<T> gsonProperty2List(String gsonString,String propertyName ,Class<MenuEntity> cls) {
+    public static <T> List<T> gsonProperty2List(String gsonString, String propertyName, Class<MenuEntity> cls) {
         List<T> list = null;
         if (gson != null) {
             JsonElement je = new JsonParser().parse(gsonString);
             JsonElement data = je.getAsJsonObject().get(propertyName);
             //根据泛型返回解析指定的类型,TypeToken<List<T>>{}.getType()获取返回类型
-            list = gson.fromJson(data.toString(), new TypeToken<List<T>>() {
+            list = gson.fromJson(data, new TypeToken<List<T>>() {
             }.getType());
         }
         return list;
