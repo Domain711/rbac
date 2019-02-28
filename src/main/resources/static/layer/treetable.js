@@ -25,7 +25,7 @@ layui.define(["form"], function(exports) {
 		var t = this,
 			level = [],
 			tbody = "",
-			thead = t.c.is_checkbox ? '<td><input type="checkbox" lay-skin="primary" lay-filter="lay-t"></td>' : '';
+			thead = t.c.is_checkbox ? '<td><input type="checkbox" name="ids[]" lay-skin="primary" lay-filter="lay-t"></td>' : '';
 		o.each(t.c.cols, function(idx, obj) {
 			thead += '<th style="width:' + obj.width + '">' + obj.title + "</th>"
 		});
@@ -33,7 +33,7 @@ layui.define(["form"], function(exports) {
 			var checked = t.c.is_checkbox && t.c.checked && o.inArray(item.id, t.c.checked) > -1 && 'checked',
 				hide_class = 'class="' + (item.pid == 0 || item.pid == t.cache(item.pid) || t.c.is_open ? "" : "hide") + '"',
 				tr = '<tr data-id="' + item.id + '" data-pid="' + item.pid + '" ' + hide_class + ">" +
-				(t.c.is_checkbox ? '<td><div><input type="checkbox" lay-skin="primary" lay-filter="lay-t" ' + checked + '></div></td>' : "");
+				(t.c.is_checkbox ? '<td><div><input type="checkbox" name="ids[]" lay-skin="primary" lay-filter="lay-t" ' + checked + '></div></td>' : "");
 			item.level = level[item.id] = item.pid > 0 ? (level[item.pid] + 1) : 0;
 			o.each(t.c.cols, function(idx, obj) {
 				tr += '<td style="width:' + obj.width + '">';
@@ -98,20 +98,42 @@ layui.define(["form"], function(exports) {
 			var status = o(data.othis).hasClass('layui-form-checked'),
 				tr = o(data.elem).parents('tr');
 			t.child_to_choose(tr.data('id'), status);
-			t.parent_to_choose(tr.data('pid'));
+			t.parent_to_choose(tr.data('pid'),status);
 			form.render('checkbox');
 		})
 	};
-	tree.prototype.parent_to_choose = function(id) {
-		var t = this,
-			pt = o(t.c.elem).find('[data-pid=' + id + ']'),
-			pl = pt.find('[lay-skin=primary]:checked').length,
-			bt = o(t.c.elem).find('[data-id=' + id + '] [lay-skin=primary]'),
-			pid = o(t.c.elem).find('[data-id=' + id + ']').data('pid');
-		if(pt.length == pl || pl == 0) {
-			bt.prop('checked', pt.length == pl);
-			pid > -1 && t.parent_to_choose(pid);
-		}
+	tree.prototype.parent_to_choose = function(id,status) {
+		var t = this;
+		let che = false;
+			if (!status){
+				// 查找所有Pid ，看看有没有是被选中的
+				o(t.c.elem).find("tr[data-pid=" + id + "]").each(function() {
+					if ( o(this).find('[lay-skin=primary]').prop('checked')){
+						che = true;
+						return;
+					}
+				})
+			}
+			if (!che) {
+				pt = o(t.c.elem).find('[data-id=' + id + ']'),
+					pl = pt.find('[lay-skin=primary]:checked').length,
+					bt = o(t.c.elem).find('[data-id=' + id + '] [lay-skin=primary]'),
+					pid = o(t.c.elem).find('[data-id=' + id + ']').data('pid');
+				if(pt.length == pl || pl == 0) {
+					bt.prop('checked', status);
+					if (pid > -1){
+						t.parent_to_choose(pid,status);
+					}
+				}
+			}
+		// o(t.c.elem).find("tr[data-id=" + pid + "]").each(function() {
+		// 	o(this).find('[lay-skin=primary]').prop('checked', status);
+		// 	var pid = o(this).data("pid");
+		// 	if (pid === 0){
+		// 		return;
+		// 	}
+		// 	t.child_to_choose(pid, status)
+		// });
 	};
 	tree.prototype.child_to_choose = function(id, status) {
 		var t = this;

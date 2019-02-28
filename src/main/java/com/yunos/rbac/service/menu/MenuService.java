@@ -16,6 +16,12 @@ public interface MenuService {
     List<MenuEntity> queryAllMenu();
 
     /**
+     * 根据用户筛选有权限的菜单
+     * @return
+     */
+    List<MenuEntity> queryAuthMenu(Long  userId);
+
+    /**
      * 根据ID获取菜单对象
      * @param id
      * @return

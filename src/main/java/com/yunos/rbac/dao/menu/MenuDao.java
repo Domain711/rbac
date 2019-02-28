@@ -22,6 +22,13 @@ public interface MenuDao {
     List<MenuEntity> queryAllMenu();
 
     /**
+     * 查询用户拥有权限的菜单
+     * @param  userId
+     * @return
+     */
+    List<MenuEntity> queryAuthMenu(Long userId);
+
+    /**
      * 根据ID查询菜单对象
      *
      * @return

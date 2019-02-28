@@ -24,6 +24,12 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
+    public List<MenuEntity> queryAuthMenu(Long userId) {
+        List<MenuEntity> list = menuDao.queryAuthMenu(userId);
+        return list;
+    }
+
+    @Override
     public MenuEntity queryMenuById(Integer id) {
         MenuEntity menu = menuDao.queryMenuById(id);
         return menu;

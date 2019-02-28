@@ -52,4 +52,12 @@
           type=#{type},menu_type=#{menuType},status=#{status},list_order=#{listOrder},remark=#{remark},is_del=#{isDel}
           where id=#{id}
     </update>
+<!--查询权限菜单-->
+    <select id="queryAuthMenu" resultMap="menuMap">
+        select id,name,pid,type,url,icon from pro_menu a where exists(
+        select menu_id from pro_role_permission b where a.id=b.menu_id and b.role_id in(
+        select role_id from pro_user_role where user_id=#{userId}
+    )
+  group by  menu_id)
+    </select>
 </mapper>
