@@ -123,7 +123,7 @@
                                                 <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                             </button>
                                             <button class="btn btn-xs btn-success"
-                                                    th:onclick="'delUser('+${user.id}+')'">
+                                                    th:onclick="'partitionRole('+${user.id}+')'">
                                                 <i class="ace-icon fa fa-users bigger-120">分配角色</i>
                                             </button>
 
@@ -275,6 +275,20 @@
             }
         )
     }
+
+    //用户角色分配
+    function partitionRole(userId) {
+        var index = layer.open({
+                title: "用户角色分配",
+                type: 2,
+                area: ['800px', '500px'],
+                shadeClose: true, //点击遮罩关闭
+                content: '/partitionRole?userId='+userId,
+                fix: true
+            }
+        );
+    }
+
 </script>
 </body>
 </html>

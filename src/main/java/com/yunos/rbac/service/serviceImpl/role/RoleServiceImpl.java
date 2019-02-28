@@ -3,6 +3,7 @@ package com.yunos.rbac.service.serviceImpl.role;
 import com.github.pagehelper.PageHelper;
 import com.yunos.rbac.base.contants.GlobalContents;
 import com.yunos.rbac.dao.role.RoleDao;
+import com.yunos.rbac.entity.auth.UserRoleEntity;
 import com.yunos.rbac.entity.role.RoleEntity;
 import com.yunos.rbac.service.role.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleEntity> queryAllRole(Integer page) {
         PageHelper.startPage(page, GlobalContents.PAGE_SIZE);
+        List<RoleEntity> list = roleDao.queryAllRole();
+        return list;
+    }
+
+    @Override
+    public List<RoleEntity> queryRoleList() {
         List<RoleEntity> list = roleDao.queryAllRole();
         return list;
     }
@@ -51,4 +58,5 @@ public class RoleServiceImpl implements RoleService {
         int count = roleDao.deleteRole(roleId);
         return count;
     }
+
 }

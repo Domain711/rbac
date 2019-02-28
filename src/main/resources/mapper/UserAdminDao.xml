@@ -27,6 +27,10 @@
     <select id="getUserById" resultType="com.yunos.rbac.entity.user.UserAdminEntity">
             SELECT * FROM pro_user_admin where id=#{userId}
     </select>
+    <!--查询用户已经拥有的角色-->
+    <select id="queryUserRole" resultType="com.yunos.rbac.entity.auth.UserRoleEntity">
+            SELECT * FROM pro_user_role where user_id=#{userId}
+    </select>
     <!--新增用户-->
     <insert id="addUser" parameterType="com.yunos.rbac.entity.user.UserAdminEntity" useGeneratedKeys="true"
             keyProperty="id">
@@ -44,5 +48,14 @@
     <delete id="deleteUser">
         delete from  `pro_user_admin` where id=#{id}
     </delete>
-
+    <!--保存用户分配的角色信息-->
+    <insert id="savePartionRole" parameterType="com.yunos.rbac.entity.auth.UserRoleEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO `pro_user_role` (user_id,role_id)
+        VALUES (#{userId},#{roleId});
+    </insert>
+    <!--删除用户的分配的角色信息-->
+    <delete id="deleteUserRole">
+        delete from  `pro_user_role` where user_id=#{userId}
+    </delete>
 </mapper>

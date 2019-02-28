@@ -1,6 +1,8 @@
 package com.yunos.rbac.dao.user;
 
+import com.yunos.rbac.entity.auth.UserRoleEntity;
 import com.yunos.rbac.entity.user.UserAdminEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -55,12 +57,33 @@ public interface UserAdminDao {
     List<UserAdminEntity> queryAll();
 
     /**
+     * 获取用户已拥有的角色
+     * @return
+     */
+    List<UserRoleEntity> queryUserRole(Long userId);
+
+    /**
      * 根据用户ID获取用户对象
      *
      * @param userId
      * @return
      */
     UserAdminEntity getUserById(String userId);
+
+    /**
+     * 保存用户分配的角色信息
+     * @param ure
+     * @return
+     */
+    int savePartionRole(UserRoleEntity ure);
+
+
+    /**
+     * 删除用户分配的角色信息
+     * @param userId
+     * @return
+     */
+    int deleteUserRole(Long userId);
 
 
 }

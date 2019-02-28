@@ -1,5 +1,6 @@
 package com.yunos.rbac.service.role;
 
+import com.yunos.rbac.entity.auth.UserRoleEntity;
 import com.yunos.rbac.entity.role.RoleEntity;
 
 import java.util.List;
@@ -13,6 +14,14 @@ public interface RoleService {
      * @return
      */
     List<RoleEntity> queryAllRole(Integer page);
+
+    /**
+     * 查询所有角色
+     * @return
+     */
+    List<RoleEntity> queryRoleList();
+
+
 
     /**
      * 根据Id获取角色信息
