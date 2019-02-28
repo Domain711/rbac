@@ -111,12 +111,6 @@ public class MenuController {
         BaseDto bd = new BaseDto();
         StringBuilder validErrors = new StringBuilder();
         try {
-            int res = menuService.saveMenu(menu);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.SUCCESS.getCode());
-            bd.setMsg(ErrorCode.SUCCESS.getMsg());
-        } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
             if (errors.hasErrors()) {
                 if (errors != null) {
                     List<ObjectError> allErrors = errors.getAllErrors();
@@ -125,11 +119,16 @@ public class MenuController {
                         validErrors.append(message).append(",");
                         System.out.printf(validErrors.toString());
                     }
+                    bd.setSucceed(GlobalContents.OPRATION_FAILD);
+                    bd.setCode(ErrorCode.ERROR.getCode());
+                    bd.setMsg(validErrors.toString());
                 }
+            } else {
+                int res = menuService.saveMenu(menu);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.SUCCESS.getCode());
+                bd.setMsg(ErrorCode.SUCCESS.getMsg());
             }
-            bd.setSucceed(GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.ERROR.getCode());
-            bd.setMsg(validErrors.toString());
         } catch (Exception e) {
             e.printStackTrace();
             bd.setSucceed(GlobalContents.OPRATION_FAILD);
@@ -151,12 +150,6 @@ public class MenuController {
         BaseDto bd = new BaseDto();
         StringBuilder validErrors = new StringBuilder();
         try {
-            int res = menuService.saveEditMenu(menu);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.SUCCESS.getCode());
-            bd.setMsg(ErrorCode.SUCCESS.getMsg());
-        } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
             if (errors.hasErrors()) {
                 if (errors != null) {
                     List<ObjectError> allErrors = errors.getAllErrors();
@@ -165,11 +158,16 @@ public class MenuController {
                         validErrors.append(message).append(",");
                         System.out.printf(validErrors.toString());
                     }
+                    bd.setSucceed(GlobalContents.OPRATION_FAILD);
+                    bd.setCode(ErrorCode.ERROR.getCode());
+                    bd.setMsg(validErrors.toString());
                 }
+            } else {
+                int res = menuService.saveEditMenu(menu);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.SUCCESS.getCode());
+                bd.setMsg(ErrorCode.SUCCESS.getMsg());
             }
-            bd.setSucceed(GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.ERROR.getCode());
-            bd.setMsg(validErrors.toString());
         } catch (Exception e) {
             e.printStackTrace();
             bd.setSucceed(GlobalContents.OPRATION_FAILD);

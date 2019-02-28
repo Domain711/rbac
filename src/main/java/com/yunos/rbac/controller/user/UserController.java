@@ -86,11 +86,6 @@ public class UserController {
         BaseDto bd = new BaseDto();
         StringBuilder validErrors = new StringBuilder();
         try {
-            int res = userService.addUser(user);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.SUCCESS.getCode());
-            bd.setMsg(ErrorCode.SUCCESS.getMsg());
-        } catch (DataIntegrityViolationException e) {
             if (errors.hasErrors()) {
                 if (errors != null) {
                     List<ObjectError> allErrors = errors.getAllErrors();
@@ -99,11 +94,16 @@ public class UserController {
                         validErrors.append(message).append(",");
                         System.out.printf(validErrors.toString());
                     }
+                    bd.setSucceed(GlobalContents.OPRATION_FAILD);
+                    bd.setCode(ErrorCode.ERROR.getCode());
+                    bd.setMsg(validErrors.toString());
                 }
+            } else {
+                int res = userService.addUser(user);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.SUCCESS.getCode());
+                bd.setMsg(ErrorCode.SUCCESS.getMsg());
             }
-            bd.setSucceed(GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.ERROR.getCode());
-            bd.setMsg(validErrors.toString());
         } catch (Exception e) {
             bd.setSucceed(GlobalContents.OPRATION_FAILD);
             bd.setCode(ErrorCode.ERROR.getCode());
@@ -123,25 +123,26 @@ public class UserController {
     String mergeUser(@Validated UserAdminEntity user, BindingResult errors) {
         BaseDto bd = new BaseDto();
         StringBuilder validErrors = new StringBuilder();
+
         try {
-            int res = userService.mergeUser(user);
-            bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.SUCCESS.getCode());
-            bd.setMsg(ErrorCode.SUCCESS.getMsg());
-        } catch (DataIntegrityViolationException e) {
             if (errors.hasErrors()) {
                 if (errors != null) {
                     List<ObjectError> allErrors = errors.getAllErrors();
                     for (ObjectError error : allErrors) {
                         String message = error.getDefaultMessage();
                         validErrors.append(message).append(",");
-                        System.out.printf(validErrors.toString());
                     }
                 }
+                bd.setSucceed(GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.ERROR.getCode());
+                bd.setMsg(validErrors.toString());
+            } else {
+                int res = userService.mergeUser(user);
+                bd.setSucceed(res > 0 ? GlobalContents.OPRATION_SUCESS : GlobalContents.OPRATION_FAILD);
+                bd.setCode(ErrorCode.SUCCESS.getCode());
+                bd.setMsg(ErrorCode.SUCCESS.getMsg());
             }
-            bd.setSucceed(GlobalContents.OPRATION_FAILD);
-            bd.setCode(ErrorCode.ERROR.getCode());
-            bd.setMsg(validErrors.toString());
+
         } catch (Exception e) {
             bd.setSucceed(GlobalContents.OPRATION_FAILD);
             bd.setCode(ErrorCode.ERROR.getCode());
@@ -181,17 +182,16 @@ public class UserController {
      * @return
      */
     @GetMapping("/partitionRole")
-    String partitionRole(Model model,@Param("userId") String userId,@Param("roleIds") String roleIds) {
+    String partitionRole(Model model, @Param("userId") String userId, @Param("roleIds") String roleIds) {
 
         UserAdminEntity user = userService.getUserById(userId);
         List<RoleEntity> roleList = roleService.queryRoleList();
         List<UserRoleEntity> userRole = userService.queryUserRole(Long.valueOf(userId));
-        List<Long> userRoles=userRole.stream().map(UserRoleEntity::getRoleId).collect(Collectors.toList());//获取已经拥有的角色列表
+        List<Long> userRoles = userRole.stream().map(UserRoleEntity::getRoleId).collect(Collectors.toList());//获取已经拥有的角色列表
 
-        model.addAttribute("user",user);
-        model.addAttribute("roleList",roleList);
-        System.out.printf(userRoles.toString());
-        model.addAttribute("userRole",userRoles);
+        model.addAttribute("user", user);
+        model.addAttribute("roleList", roleList);
+        model.addAttribute("userRole", userRoles);
         return "/user/partitionRole";
     }
 
@@ -203,10 +203,10 @@ public class UserController {
      */
     @PostMapping("/saveParitionRole")
     @ResponseBody
-    String saveParitionRole(@Param("userId") Long userId,@Param("roleIds") String roleIds) {
+    String saveParitionRole(@Param("userId") Long userId, @Param("roleIds") String roleIds) {
         BaseDto bd = new BaseDto();
         try {
-            userService.savePartitionRole(userId,roleIds);
+            userService.savePartitionRole(userId, roleIds);
             bd.setSucceed(GlobalContents.OPRATION_SUCESS);
             bd.setCode(ErrorCode.SUCCESS.getCode());
             bd.setMsg(ErrorCode.SUCCESS.getMsg());

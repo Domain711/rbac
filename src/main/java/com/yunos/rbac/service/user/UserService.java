@@ -21,6 +21,7 @@ public interface UserService {
 
     /**
      * 获取账号已拥有的角色信息
+     *
      * @return
      */
     List<UserRoleEntity> queryUserRole(Long userId);

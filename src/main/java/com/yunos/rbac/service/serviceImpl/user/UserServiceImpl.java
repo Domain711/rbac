@@ -65,6 +65,8 @@ public class UserServiceImpl implements UserService {
                 ure.setRoleId(Long.valueOf(role));
                 userDao.savePartionRole(ure);
             }
+        } else {//清空原有的分配角色数据
+            userDao.deleteUserRole(userId);
         }
     }
 

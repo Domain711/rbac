@@ -58,6 +58,7 @@ public interface UserAdminDao {
 
     /**
      * 获取用户已拥有的角色
+     *
      * @return
      */
     List<UserRoleEntity> queryUserRole(Long userId);
@@ -72,6 +73,7 @@ public interface UserAdminDao {
 
     /**
      * 保存用户分配的角色信息
+     *
      * @param ure
      * @return
      */
@@ -80,6 +82,7 @@ public interface UserAdminDao {
 
     /**
      * 删除用户分配的角色信息
+     *
      * @param userId
      * @return
      */
