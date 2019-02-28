@@ -30,7 +30,7 @@ public class MainController {
     String index(Model model) {
 //        List<MenuEntity> menuList = menuService.queryParentMenu();
         List<MenuEntity> menuList = menuService.queryAuthMenu(7l);
-        List<TreeBaseDto> data = null !=menuList ? MenuUtil.getMenuData(menuList) : null;
+        List<TreeBaseDto> data = null != menuList ? MenuUtil.getMenuData(menuList) : null;
         model.addAttribute("data", data);
         return "/main/index";
     }
